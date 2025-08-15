@@ -30,7 +30,44 @@ A Python GUI application built with **Tkinter** that helps users find their idea
 
 ---
 
-## 📁 CSV File Format
+## 🧪 Quick Code Preview
+
+Here's a small snippet from the project to get you started quickly:
+
+```python
+import tkinter as tk
+from tkinter import messagebox
+import csv
+
+# Load destinations from CSV
+def load_destinations(file_path):
+    destinations = []
+    try:
+        with open(file_path, mode='r') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                row["popularity"] = float(row["popularity"])
+                row["price"] = float(row["price"])
+                for key in row:
+                    if row[key] in {"0", "1"}:
+                        row[key] = int(row[key])
+                destinations.append(row)
+    except Exception as e:
+        messagebox.showerror("Error", f"Failed to load destinations: {e}")
+    return destinations
+
+# Start GUI
+root = tk.Tk()
+root.title("Travel Destination Finder")
+root.geometry("500x600")
+root.mainloop()
+```
+
+📌 Copy-paste this in `main.py` and make sure you have a CSV file named `travel_destinations.csv`!
+
+---
+
+## 🗃️ CSV File Format
 
 Your `travel_destinations.csv` should include the following headers:
 
@@ -49,49 +86,31 @@ Your `travel_destinations.csv` should include the following headers:
 | `modern`         | 1 if modern experience              | `int`    |
 | `historic`       | 1 if historically rich              | `int`    |
 
-👉 All binary columns (`0` or `1`) indicate whether the feature applies to the destination.
-
----
-
-## 🖥️ GUI Preview
-
-```
-+----------------------------------------+
-| Select Your Travel Preferences         |
-| [ ] Tropical     [ ] Cold              |
-| [ ] Adventure    [ ] Relaxation        |
-| [ ] Cultural     [ ] Nature            |
-| [ ] Shopping     [ ] Modern            |
-| [ ] Historic                             |
-|                                        |
-| [ Find Destinations ] [ Clear ]        |
-|                                        |
-| Results:                               |
-| - Top picks with popularity & price - |
-+----------------------------------------+
-```
-
 ---
 
 ## 🚀 Getting Started
 
-1. 📌 Make sure you have **Python 3.x** installed
-2. 📁 Create a `travel_destinations.csv` with the format above
-3. 🔽 Run the Python script:
+### 🧰 Requirements
+
+* Python 3.x (no external libraries needed)
+* File: `main.py`
+* Data: `travel_destinations.csv`
+
+### ▶️ Run the App
 
 ```bash
-python travel_finder.py
+python main.py
 ```
 
-4. ✅ Select preferences and discover your ideal travel spot!
+Make sure `main.py` and `travel_destinations.csv` are in the **same folder**.
 
 ---
 
 ## 🛠️ Technologies Used
 
 * 🐍 Python 3.x
-* 🖼️ Tkinter for GUI
-* 📄 CSV for data storage and filtering
+* 🖼️ Tkinter (GUI)
+* 📄 CSV (Data Storage)
 
 ---
 
@@ -103,7 +122,5 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## 👨‍💻 Author
 
-Built with ✨ passion and Python by **PRAJWALINDRA**
+Made with ❤️ by **PRAJWALINDRA**
 Let travel meet tech — one destination at a time 🌐✈️
-
----
